@@ -1,0 +1,102 @@
+@font-face {
+  font-family: 'Abmit';
+  src: url('/src/assets/fonts/Ambit-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Ambit';
+  src: url('/src/assets/fonts/Ambit-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Ambit';
+  src: url('/src/assets/fonts/Ambit-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Ambit';
+  src: url('/src/assets/fonts/Ambit-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Ambit';
+  src: url('/src/assets/fonts/Ambit-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Ambit';
+  src: url('/src/assets/fonts/Ambit-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Ambit';
+  src: url('/src/assets/fonts/Ambit-Regular.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Ambit';
+  src: url('/src/assets/fonts/FontsFree-Net-Ambit-Regular.ttf')
+    format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Ambit';
+  src: url('/src/assets/fonts/FontsFree-Net-Ambit-RegularItalic.ttf')
+    format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Ambit';
+  src: url('/src/assets/fonts/Ambit-SemiBold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Ambit';
+  src: url('/src/assets/fonts/Ambit-SemiBoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Ambit';
+  src: url('/src/assets/fonts/Ambit-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Ambit';
+  src: url('/src/assets/fonts/Ambit-ThinItalic.ttf') format('truetype');
+  font-weight: 100;
+  font-style: italic;
+}
+
+video::-webkit-media-controls {
+  display: none;
+}
+video::-webkit-media-controls-start-playback-button {
+  display: none;
+}
+video::-webkit-media-controls-panel {
+  display: none !important;
+}

@@ -1,0 +1,102 @@
+image: "alavi1412/node-aws-cli-runner"
+stages:
+  - lint
+  - test
+  - deploy
+  
+    
+# Checking if the files are formatted properly or not
+.code-style:
+  stage: lint
+
+  script:
+    - cd $CI_PROJECT_DIR
+  
+
+# Testing the codes on every push
+.test:
+  stage: test
+  script:
+    - cd $CI_PROJECT_DIR
+
+
+
+deploy-develop:
+  stage: deploy
+  variables:
+    BUCKET_NAME: backend-develop-videorepute
+    RUNNER_NAME: develop_widget_runner.js
+  script:
+    - cd $CI_PROJECT_DIR
+    - cp .env.dev .env
+    - npm install
+    - npm run build
+    - export FOLDER_NAME=BACKUP_AT_"$(date +"%d-%m-%Y|%H:%M:%S")"
+    # Backup and move the new global.css
+    - aws s3 mv s3://$BUCKET_NAME/widget/global.css s3://$BUCKET_NAME/widget/BACKUP_FOLDER/$FOLDER_NAME/
+    - aws s3 cp public/global.css s3://$BUCKET_NAME/widget/
+    # Backup and move the new bundle.css
+    - aws s3 mv s3://$BUCKET_NAME/widget/bundle.css s3://$BUCKET_NAME/widget/BACKUP_FOLDER/$FOLDER_NAME/
+    - aws s3 cp public/build/bundle.css s3://$BUCKET_NAME/widget/
+    # Backup and move the new bundle.js
+    - aws s3 mv s3://$BUCKET_NAME/widget/bundle.js s3://$BUCKET_NAME/widget/BACKUP_FOLDER/$FOLDER_NAME/
+    - aws s3 cp public/build/bundle.js s3://$BUCKET_NAME/widget/
+    # Backup and move the new runner
+    - aws s3 mv s3://$BUCKET_NAME/widget/$RUNNER_NAME s3://$BUCKET_NAME/widget/BACKUP_FOLDER/$FOLDER_NAME/
+    - aws s3 cp $RUNNER_NAME s3://$BUCKET_NAME/widget/
+  only: 
+    - develop
+
+
+deploy-qa:
+  stage: deploy
+  variables:
+    BUCKET_NAME: backend-staging-videorepute
+    RUNNER_NAME: qa_widget_runner.js
+  script:
+    - cd $CI_PROJECT_DIR
+    - cp .env.staging .env
+    - npm install
+    - npm run build
+    - export FOLDER_NAME=BACKUP_AT_"$(date +"%d-%m-%Y|%H:%M:%S")"
+    # Backup and move the new global.css
+    - aws s3 mv s3://$BUCKET_NAME/widget/global.css s3://$BUCKET_NAME/widget/BACKUP_FOLDER/$FOLDER_NAME/
+    - aws s3 cp public/global.css s3://$BUCKET_NAME/widget/
+    # Backup and move the new bundle.css
+    - aws s3 mv s3://$BUCKET_NAME/widget/bundle.css s3://$BUCKET_NAME/widget/BACKUP_FOLDER/$FOLDER_NAME/
+    - aws s3 cp public/build/bundle.css s3://$BUCKET_NAME/widget/
+    # Backup and move the new bundle.js
+    - aws s3 mv s3://$BUCKET_NAME/widget/bundle.js s3://$BUCKET_NAME/widget/BACKUP_FOLDER/$FOLDER_NAME/
+    - aws s3 cp public/build/bundle.js s3://$BUCKET_NAME/widget/
+    # Backup and move the new runner
+    - aws s3 mv s3://$BUCKET_NAME/widget/$RUNNER_NAME s3://$BUCKET_NAME/widget/BACKUP_FOLDER/$FOLDER_NAME/
+    - aws s3 cp $RUNNER_NAME s3://$BUCKET_NAME/widget/
+  only: 
+    - qa
+
+
+deploy-prod:
+  stage: deploy
+  variables:
+    BUCKET_NAME: backend-prod-videorepute
+    RUNNER_NAME: master_widget_runner.js
+  script:
+    - cd $CI_PROJECT_DIR
+    - cp .env.prod .env
+    - npm install
+    - npm run build
+    - export FOLDER_NAME=BACKUP_AT_"$(date +"%d-%m-%Y|%H:%M:%S")"
+    # Backup and move the new global.css
+    - aws s3 mv s3://$BUCKET_NAME/widget/global.css s3://$BUCKET_NAME/widget/BACKUP_FOLDER/$FOLDER_NAME/
+    - aws s3 cp public/global.css s3://$BUCKET_NAME/widget/
+    # Backup and move the new bundle.css
+    - aws s3 mv s3://$BUCKET_NAME/widget/bundle.css s3://$BUCKET_NAME/widget/BACKUP_FOLDER/$FOLDER_NAME/
+    - aws s3 cp public/build/bundle.css s3://$BUCKET_NAME/widget/
+    # Backup and move the new bundle.js
+    - aws s3 mv s3://$BUCKET_NAME/widget/bundle.js s3://$BUCKET_NAME/widget/BACKUP_FOLDER/$FOLDER_NAME/
+    - aws s3 cp public/build/bundle.js s3://$BUCKET_NAME/widget/
+    # Backup and move the new runner
+    - aws s3 mv s3://$BUCKET_NAME/widget/$RUNNER_NAME s3://$BUCKET_NAME/widget/BACKUP_FOLDER/$FOLDER_NAME/
+    - aws s3 cp $RUNNER_NAME s3://$BUCKET_NAME/widget/
+  only: 
+    - master

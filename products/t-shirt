@@ -1,0 +1,10 @@
+<html>
+    <head>
+        <link rel='icon' type='image/png' href='/favicon.png'>
+
+    </head>
+    <body>
+        It's a simple T Shirt product page
+        <script src='../develop_widget_runner.js?shop=videorepute-develop.myshopify.com'></script>
+    </body>
+</html>
