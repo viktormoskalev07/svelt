@@ -1096,13 +1096,11 @@
     if (prevData === 0 && isRunNexLoadingVideo) {
       isRunNexLoadingVideo = false;
       showVideo(responses[id]["playback_id"], id);
-      console.log("working...", id);
     }
     if (id + 1 < responses.length) {
       if (prevData < id) {
         prevData = id;
         showVideo(responses[id]["playback_id"], id);
-        console.log("working...", id);
       }
     }
   }
