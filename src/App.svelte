@@ -995,15 +995,13 @@ function loadVideo(){
 function scrollFunction (element) {
   selectShowVideo =  document.getElementById(element.detail.element.id)
   let el = element.detail.element.id
+  nextLoadingVideo(el)
   currentScroll = el.substr(20)
-  console.log("speed",speedOfVideo)
-
   selectShowVideo.playbackRate = speedOfVideo
   selectShowVideo.currentTime = 0
   handlePlayButton()
   selectShowVideo.play()
   showPlayButton = false
-  nextLoadingVideo(el)
   // if (has_next) {
   //     if (current + 1 < responses.length) {
   //       current = current + 1
