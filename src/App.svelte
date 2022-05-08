@@ -151,6 +151,7 @@ let gift
 
 let style
   function showVideo(playbacl_id,index) {
+    console.log(playbacl_id)
     if(index <= loaded_until){
       return
     }
@@ -164,7 +165,6 @@ let style
 
     clearInterval(secondTimer);
     firstIndex=false
-    console.log(playbacl_id)
     poster = `https://image.mux.com/${playbacl_id}/thumbnail.png?width=214&height=121&fit_mode=pad`
     video_src = `https://stream.mux.com/${playbacl_id}.m3u8`
     gift =`https://image.mux.com/${playbacl_id}/thumbnail.png?width=400&height=200&fit_mode=smartcrop&time=35`
@@ -331,13 +331,6 @@ let style
     if(isFromOnmount){
       gif_src = `https://image.mux.com/${responses[current]['playback_id']}/animated.gif`
     }
-    showVideo(responses[current]['playback_id'],current)
-    if(total > 1 && isFromOnmount){
-      showVideo(responses[current + 1]['playback_id'],current + 1)
-    }
-    if(total > 2 && isFromOnmount){
-      showVideo(responses[current + 2]['playback_id'],current + 2)
-    }
   }
 
   onMount(async () => {
@@ -357,11 +350,7 @@ let style
 
     if (is_thankyou_page) {
       const orderId = Shopify.checkout.order_id
-      console.log({ orderId })
     }
-
-    console.log('Widget-width', window.innerWidth);
-    console.log('Widget-height', window.innerHeight);
 
 
     if (is_marketing) {
@@ -427,7 +416,6 @@ let style
         staticWidget=script_url.searchParams.get('static-widget')
         // staticWidget=true
         if(staticWidget){
-          console.log("is static")
           if(script_url.searchParams.get('background_color')){
             bgColor = script_url.searchParams.get('background_color')
           }
@@ -490,10 +478,7 @@ let style
       showPlayButton = false
     }
     element = document.getElementById('timerBar')
-    console.log("desktopStatic",desktopStatic)
-    console.log("d",gif_src)
 
-    // console.log({ changeHeight })
     // firstwidth = window.innerWidth
 
   })
@@ -659,6 +644,8 @@ let style
     }
   }
 
+  let prevData = 0;
+
   function handleNext() {
   selectShowVideo.pause()
 
@@ -668,46 +655,16 @@ let style
         videos[ctr].style.display= 'none'; 
         videos[ctr].parentElement.style.display= 'none'; 
       }
-      var selectedVideo = document.getElementById(`video-player-widget-${current + 1}`)
+      var selectedVideo = document.getElementById(`video-player-widget-${prevData + 1}`)
       selectedVideo.style.display= 'block';
       selectedVideo.parentElement.style.display= 'block';
   }
-  video = document.getElementById(`video-player-widget-${current + 1}`)
+  video = document.getElementById(`video-player-widget-${prevData + 1}`)
   selectShowVideo = video
     changeVideo=true
     pricingCounter == 0
     showPlayButton = false
-    if (has_next) {
-      if(window.innerWidth > 482){
-        selectShowVideo.currentTime = 0
-      }
-    // isLoaded=true
-      if (current + 1 < responses.length) {
-        current = current + 1
-        showVideo(responses[current]['playback_id'], current)
-        if(current + 1 < total){
-        showVideo(responses[current + 1]['playback_id'], current + 1)
-        }
-        if(current + 2 < total){
-        showVideo(responses[current + 2]['playback_id'], current + 2)
-        }
-      } else if (current + 1 == responses.length && current_page < last_page) {
-        updateStorate(current_page + 1,false)
-      } else {
-        has_next = false
-      }
-
-      if (current + 1 == total) {
-        has_next = false
-      }
-
-      if (current != 0) {
-        has_previous = true
-      }
-    }else{
-      showPlayButton = true
-    }
-
+    nextLoadingVideo(`video-player-widget-${prevData + 1}`)
     let index=4
     selectShowVideo.addEventListener('timeupdate', function (ev) {
       if (parseInt(ev.target.currentTime / 60, 10) <= 9) {
@@ -955,7 +912,6 @@ let style
               }
             }
           }else{
-            // console.log("end video",allVideo)
             // allVideo.scroll(0, 100)
             selectShowVideo.pause()
             showPlayButton = true
@@ -1074,7 +1030,6 @@ function scrollFunction (element) {
   //   }
 }
 
-let prevData = 0;
 let isRunNexLoadingVideo = true;
 
 function nextLoadingVideo(video_id) {
@@ -1082,11 +1037,13 @@ function nextLoadingVideo(video_id) {
     if (prevData === 0 && isRunNexLoadingVideo) {
       isRunNexLoadingVideo = false;
       showVideo(responses[id]["playback_id"], id);
+      showVideo(responses[id + 1]["playback_id"], id + 1);
+
     }
     if (id + 1 < responses.length) {
       if (prevData < id) {
         prevData = id;
-        showVideo(responses[id]["playback_id"], id);
+        showVideo(responses[id + 1]["playback_id"], id + 1);
       }
     }
   }
