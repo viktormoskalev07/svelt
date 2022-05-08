@@ -327,6 +327,7 @@ let style
     total_page = result.paginated.last_page
     current_page = result.paginated.current_page
     responses = responses.concat(result.data)
+    nextLoadingVideo("video-player-widget-0");
     if(isFromOnmount){
       gif_src = `https://image.mux.com/${responses[current]['playback_id']}/animated.gif`
     }
@@ -1046,31 +1047,50 @@ function scrollFunction (element) {
   handlePlayButton()
   selectShowVideo.play()
   showPlayButton = false
-  if (has_next) {
-      if (current + 1 < responses.length) {
-        current = current + 1
-        showVideo(responses[current]['playback_id'], current)
-        if(current + 1 < total){
-        showVideo(responses[current + 1]['playback_id'], current + 1)
-        }
-        if(current + 2 < total){
-        showVideo(responses[current + 2]['playback_id'], current + 2)
-        }
-      } else if (current + 1 == responses.length && current_page < last_page) {
-        updateStorate(current_page + 1,false)
-      } else {
-        has_next = false
-      }
+  nextLoadingVideo(el)
+  // if (has_next) {
+  //     if (current + 1 < responses.length) {
+  //       current = current + 1
+  //       showVideo(responses[current]['playback_id'], current)
+  //       if(current + 1 < total){
+  //       showVideo(responses[current + 1]['playback_id'], current + 1)
+  //       }
+  //       if(current + 2 < total){
+  //       showVideo(responses[current + 2]['playback_id'], current + 2)
+  //       }
+  //     } else if (current + 1 == responses.length && current_page < last_page) {
+  //       updateStorate(current_page + 1,false)
+  //     } else {
+  //       has_next = false
+  //     }
 
-      if (current + 1 == total) {
-        has_next = false
-      }
+  //     if (current + 1 == total) {
+  //       has_next = false
+  //     }
 
-      if (current != 0) {
-        has_previous = true
+  //     if (current != 0) {
+  //       has_previous = true
+  //     }
+  //   }
+}
+
+let prevData = 0;
+let isRunNexLoadingVideo = true;
+
+function nextLoadingVideo(video_id) {
+    let id = Number(video_id.slice(video_id.length - 1, video_id.length));
+    if (prevData === 0 && isRunNexLoadingVideo) {
+      isRunNexLoadingVideo = false;
+      showVideo(responses[id]["playback_id"], id);
+    }
+    if (id + 1 < responses.length) {
+      if (prevData < id) {
+        prevData = id;
+        showVideo(responses[id]["playback_id"], id);
       }
     }
-}
+  }
+
 
 setInterval(()=>{
   widgetResize = widgetResized(window.innerHeight)
