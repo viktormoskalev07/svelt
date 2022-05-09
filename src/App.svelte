@@ -151,7 +151,7 @@
 
   let style;
   function showVideo(playbacl_id, index) {
-    console.log(playbacl_id);
+    console.log(playbacl_id, index);
     if (index <= loaded_until) {
       return;
     }
@@ -165,7 +165,7 @@
 
     clearInterval(secondTimer);
     firstIndex = false;
-    poster = `https://image.mux.com/${playbacl_id}/thumbnail.png`;
+    poster = `https://image.mux.com/${playbacl_id}/thumbnail.jpg`;
     video_src = `https://stream.mux.com/${playbacl_id}.m3u8`;
     gift = `https://image.mux.com/${playbacl_id}/thumbnail.png`;
     if (isMarketing) {
@@ -1060,19 +1060,13 @@
     let id = Number(video_id.slice(video_id.length - 1, video_id.length));
     if (prevData === 0 && isRunNexLoadingVideo) {
       isRunNexLoadingVideo = false;
-      showVideo(responses[id]["playback_id"], id);
-      showVideo(responses[id + 1]["playback_id"], id + 1);
+      showVideo(responses[id].playback_id, id);
+      showVideo(responses[id + 1].playback_id, id + 1);
     }
-    if (id + 1 === responses.length) {
-      if (!lastVideo) {
-        showVideo(responses[id]["playback_id"], id);
-        lastVideo = true;
-      }
-    } else if (id + 1 < responses.length) {
+    if (id + 1 < responses.length) {
       if (prevData < id) {
         prevData = id;
-        showVideo(responses[id + 1]["playback_id"], id + 1);
-        console.log(id);
+        showVideo(responses[id + 1].playback_id, id + 1);
       }
     }
   }
