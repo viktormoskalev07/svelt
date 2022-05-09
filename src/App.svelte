@@ -165,9 +165,9 @@
 
     clearInterval(secondTimer);
     firstIndex = false;
-    poster = `https://image.mux.com/${playbacl_id}/thumbnail.jpg`;
+    poster = `https://image.mux.com/${playbacl_id}/thumbnail.png?width=214&height=121`;
     video_src = `https://stream.mux.com/${playbacl_id}.m3u8`;
-    gift = `https://image.mux.com/${playbacl_id}/thumbnail.png`;
+    gift = `https://image.mux.com/${playbacl_id}/thumbnail.png?width=214&height=121`;
     if (isMarketing) {
       gif_src = `https://image.mux.com/${playbacl_id}/animated.gif`;
     }
