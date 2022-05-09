@@ -165,9 +165,9 @@
 
     clearInterval(secondTimer);
     firstIndex = false;
-    poster = `https://image.mux.com/${playbacl_id}/thumbnail.jpg`;
+    poster = `https://image.mux.com/${playbacl_id}/thumbnail.png`;
     video_src = `https://stream.mux.com/${playbacl_id}.m3u8`;
-    gift = `https://image.mux.com/${playbacl_id}/thumbnail.jpg`;
+    gift = `https://image.mux.com/${playbacl_id}/thumbnail.png`;
     if (isMarketing) {
       gif_src = `https://image.mux.com/${playbacl_id}/animated.gif`;
     }
@@ -209,7 +209,7 @@
                         id="video-player-widget-${index}"
                         class="videoreput-widget-slider-video"
                         style="display:none;border-radius:0;width: 375px;height: 630px;object-fit: cover;z-index: 0;cursor:pointer;height:${height};width:${width};width:${pWidth};height:${pHeight};border-radius:${pRadius};width:${phoneWidth};height:${phoneHeight};">
-                        <source src=${poster} type="video/mp4" />
+                        <img src=${poster} type="video/mp4" />
                         <track kind="captions" />
                     </video>`;
     } else {
@@ -220,7 +220,7 @@
                         id="video-player-widget-${index}"
                         class="videoreput-widget-slider-video"
                         style="border-radius:0;width: 375px;height: 630px;object-fit: cover;z-index: 0;cursor:pointer;height:${height};width:${width};width:${pWidth};height:${pHeight};border-radius:${pRadius};width:${phoneWidth};height:${phoneHeight};">
-                        <source src=${poster} type="video/mp4" />
+                        <img src=${poster} type="video/mp4" />
                         <track kind="captions" />
                     </video>`;
     }
