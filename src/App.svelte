@@ -673,7 +673,7 @@
     pricingCounter == 0;
     showPlayButton = false;
     nextLoadingVideo(`video-player-widget-${prevData + 1}`);
-    let index = 4;
+    let index = 5;
     selectShowVideo.addEventListener("timeupdate", function (ev) {
       if (parseInt(ev.target.currentTime / 60, 10) <= 9) {
         currentMinutes = `0${parseInt(ev.target.currentTime / 60, 10)}`;
