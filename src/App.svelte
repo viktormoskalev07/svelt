@@ -673,7 +673,7 @@
     pricingCounter == 0;
     showPlayButton = false;
     nextLoadingVideo(`video-player-widget-${prevData + 1}`);
-    let index = 5;
+    let index = 4;
     selectShowVideo.addEventListener("timeupdate", function (ev) {
       if (parseInt(ev.target.currentTime / 60, 10) <= 9) {
         currentMinutes = `0${parseInt(ev.target.currentTime / 60, 10)}`;
@@ -1055,7 +1055,7 @@
   }
 
   let isRunNexLoadingVideo = true;
-
+  let lastVideo = false;
   function nextLoadingVideo(video_id) {
     let id = Number(video_id.slice(video_id.length - 1, video_id.length));
     if (prevData === 0 && isRunNexLoadingVideo) {
@@ -1063,10 +1063,16 @@
       showVideo(responses[id]["playback_id"], id);
       showVideo(responses[id + 1]["playback_id"], id + 1);
     }
-    if (id + 1 < responses.length) {
+    if (id + 1 === responses.length) {
+      if (!lastVideo) {
+        showVideo(responses[id]["playback_id"], id);
+        lastVideo = true;
+      }
+    } else if (id + 1 < responses.length) {
       if (prevData < id) {
         prevData = id;
         showVideo(responses[id + 1]["playback_id"], id + 1);
+        console.log(id);
       }
     }
   }
